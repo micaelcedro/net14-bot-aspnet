@@ -7,20 +7,25 @@ using MongoDB.Driver;
 
 namespace SimpleBot
 {
-    public class historicoChat
+    public class controleMensagens
     {
-        public static void inserirMensagem(Logic.SimpleMessage mensagem)
+        public static void controleDeEnvio(string idUser)
         {
             string connection = "mongodb://localhost:27017";
             MongoClient cl = new MongoClient(connection);
             var db = cl.GetDatabase("BOT");
-            var col = db.GetCollection<BsonDocument>("historicoMensagens");
+            var col = db.GetCollection<BsonDocument>("userProfile");
+
+            var filtro = Builders<BsonDocument>.Filter.Eq("idUser", idUser);
+
+            var res = col.Find(filtro).ToList();
+
+            int qtdMsg = 1;
 
             BsonDocument doc = new BsonDocument()
             {
-                {"fromName", mensagem.User},
-                {"fromId", mensagem.Id },
-                {"mensagem", mensagem.Text}
+                {"idUser", idUser},
+                {"qtdMsg", qtdMsg}
             };
 
             col.InsertOne(doc);

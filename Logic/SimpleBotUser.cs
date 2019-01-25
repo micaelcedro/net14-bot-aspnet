@@ -9,8 +9,8 @@ namespace SimpleBot.Logic
     {
         public string Reply(SimpleMessage message)
         {
+            controleMensagens.controleDeEnvio(message.Id);
             return $"{message.User} disse '{message.Text}";
         }
-
     }
 }

@@ -44,8 +44,7 @@ namespace SimpleBot
 
             var message = new SimpleMessage(userFromId, userFromName, text);
 
-            historicoChat historicoChat = new historicoChat();
-            historicoChat.inserirMensagem(userFromName, userFromId, text);
+            historicoChat.inserirMensagem(message);
 
             string response = g_bot.Reply(message);
 
